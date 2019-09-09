@@ -1,6 +1,6 @@
 ---
 title: "HomeWork1"
-author: "adrose"
+author: "Adon Rosen"
 date: "9/9/2019"
 output: html_document
 ---
@@ -20,12 +20,13 @@ print("Done loading librarys")
 ```{r load data}
 all.dat <- read.spss("./salary.sav", to.data.frame=T)
 ## I am now going to write a csv, so I can upload this to github and have the data in a remote location
-write.csv(all.data, "./salary.csv", quote=F, row.names=F)
+write.csv(all.dat, "./salary.csv", quote=F, row.names=F)
 all.dat <- read.csv('./salary.csv')
 ```
 
 
-## The following ssections will be used to answer Problem #1
+# The following sections will be used to answer Problem #1
+## Here is problem 1A
 ```{r 1A produce mean, median, and variance}
 mean.salary <- mean(all.dat$salary)
 median.salary <- median(all.dat$salary)
@@ -35,19 +36,143 @@ print(paste("The median of salary is: ", median.salary))
 print(paste("The variance of salary is: ", var.salary))
 
 ```
+## Problem 1B
 ```{r 1B plot and describe the salary variable, echo=FALSE}
 hist(all.dat$salary)
 boxplot(all.dat$salary)
 qqnorm(all.dat$salary)
 print(paste("These data appear to be relativley normal although there is one lower bound outlier"))
 ```
-
-## Including Plots
-
-You can also embed plots, for example:
-
-```{r pressure, echo=FALSE}
-plot(pressure)
+## Problem 1C
+```{r 1C Create a scatter plot using ggplot of salary vs pubs, echo=FALSE}
+out.scat.one <- ggplot(data=all.dat, aes(x=pubs, y=salary)) +
+  geom_point() +
+  geom_smooth(method='lm')
+print(out.scat.one)
+```
+##Problem 1D
+```{r 1D now add a factor to the previous plot, echo=FALSE}
+all.dat$sex <- factor(all.dat$sex)
+out.scat.two <-  ggplot(data=all.dat, aes(x=pubs, y=salary, group=sex, color=sex)) +
+  geom_point() +
+  geom_smooth(method='lm')
+print(out.scat.two)
 ```
 
-Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
+# The following code will be used to answer question 2
+```{r create a pdf with a mean of 25 and sd of 5, echo=FALSE}
+x.seq <- seq(0, 50, by=.001)
+tmp.dist <- dnorm(x=x.seq, mean=25, sd=5)
+## Now plot this distribution
+plot(x.seq, tmp.dist)
+```
+
+## Problem 2A
+```{r 2A find percent of distribution greater than 2, echo=FALSE}
+## First plot what we want
+mean=25; sd=5
+lb=22
+x <- x.seq
+hx <- dnorm(x,mean,sd)
+
+plot(x, hx, type="n", xlab="IQ Values", ylab="",
+  main="", axes=TRUE)
+
+i <- x >= lb 
+lines(x, hx)
+polygon(c(lb,x[i],50), c(0,hx[i],0), col="red")
+area <- 1 - pnorm(lb, mean, sd)
+result <- paste("% greater than 22 =", round(area, 3))
+mtext(result,3)
+
+```
+
+## Problem 2B
+
+```{r 2B find percent of distribution greater than 24 & less than 28 exclusive, echo=FALSE}
+## First plot what we want
+mean=25; sd=5
+lb=24 ; ub=28
+x <- x.seq
+hx <- dnorm(x,mean,sd)
+
+plot(x, hx, type="n", xlab="IQ Values", ylab="",
+  main="", axes=TRUE)
+
+i <- x >= lb & x <= ub
+lines(x, hx)
+polygon(c(lb,x[i],ub), c(0,hx[i],0), col="red")
+area <- pnorm(ub, mean, sd) - pnorm(lb, mean, sd)
+result <- paste("% in 24-28 =", round(area, 3))
+mtext(result,3)
+
+```
+
+## Problem 2C
+```{r 2C calculate the z score of the 50th percentile, echo=FALSE}
+## First plot what we want
+mean=25; sd=5
+x <- x.seq
+hx <- dnorm(x,mean,sd)
+
+plot(x, hx, type="n", xlab="IQ Values", ylab="",
+  main="", axes=TRUE)
+lines(x, hx)
+abline(v=mean)
+
+## Now calculate the z score... of the fifty percentile.. which I know is 0
+z_score_f <- qnorm(.5)
+result <- paste("Z score of the 50th percentile:", z_score_f)
+mtext(result,3)
+
+```
+
+## Problem 2D
+```{r 2D the z scores of the values grabbing 50percent of the data, echo=FALSE}
+## First plot what we want
+mean=25; sd=5
+x <- x.seq
+hx <- dnorm(x,mean,sd)
+
+lb <- 25 + (qnorm(.25)*5)
+ub <- 25 + (qnorm(.75)*5)
+
+plot(x, hx, type="n", xlab="IQ Values", ylab="",
+  main="", axes=TRUE)
+
+i <- x >= lb & x <= ub
+lines(x, hx)
+polygon(c(lb,x[i],ub), c(0,hx[i],0), col="red")
+area <- pnorm(ub, mean, sd) - pnorm(lb, mean, sd)
+result <- paste("LB = ", round(lb, 3), "UB = ", round(ub, 3))
+mtext(result,3)
+answer_p1 <- paste("The lower bound z score is: ", round(qnorm(.25),3), "The associated raw value is: ", round(lb,3))
+answer_p2 <- paste("The upper bound z score is: ", round(qnorm(.75),3), "The associated raw value is: ", round(ub,3))
+print(answer_p1)
+print(answer_p2)
+```
+
+## Problem 2E
+```{r 2E the z scores of the values grabbing 95percent of the data, echo=FALSE}
+## First plot what we want
+mean=25; sd=5
+x <- x.seq
+hx <- dnorm(x,mean,sd)
+
+lb <- 25 + (qnorm(.025)*5)
+ub <- 25 + (qnorm(.975)*5)
+
+plot(x, hx, type="n", xlab="IQ Values", ylab="",
+  main="", axes=TRUE)
+
+i <- x >= lb & x <= ub
+lines(x, hx)
+polygon(c(lb,x[i],ub), c(0,hx[i],0), col="red")
+area <- pnorm(ub, mean, sd) - pnorm(lb, mean, sd)
+result <- paste("LB = ", round(lb, 3), "UB = ", round(ub, 3))
+mtext(result,3)
+answer_p1 <- paste("The lower bound z score is: ", round(qnorm(.025),3), "The associated raw value is: ", round(lb,3))
+answer_p2 <- paste("The upper bound z score is: ", round(qnorm(.975),3), "The associated raw value is: ", round(ub,3))
+print(answer_p1)
+print(answer_p2)
+```
