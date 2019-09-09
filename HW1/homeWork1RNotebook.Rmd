@@ -2,7 +2,7 @@
 title: "HomeWork1"
 author: "Adon Rosen"
 date: "9/9/2019"
-output: html_document
+output: pdf_document
 ---
 
 ```{r setup, include=FALSE}
@@ -37,21 +37,22 @@ print(paste("The variance of salary is: ", var.salary))
 
 ```
 ## Problem 1B
-```{r 1B plot and describe the salary variable, echo=FALSE}
+```{r 1B plot and describe the salary variable}
 hist(all.dat$salary)
 boxplot(all.dat$salary)
 qqnorm(all.dat$salary)
 print(paste("These data appear to be relativley normal although there is one lower bound outlier"))
 ```
 ## Problem 1C
-```{r 1C Create a scatter plot using ggplot of salary vs pubs, echo=FALSE}
+```{r 1C Create a scatter plot using ggplot of salary vs pubs}
 out.scat.one <- ggplot(data=all.dat, aes(x=pubs, y=salary)) +
   geom_point() +
   geom_smooth(method='lm')
 print(out.scat.one)
 ```
-##Problem 1D
-```{r 1D now add a factor to the previous plot, echo=FALSE}
+
+## Problem 1D
+```{r 1D now add a factor to the previous plot}
 all.dat$sex <- factor(all.dat$sex)
 out.scat.two <-  ggplot(data=all.dat, aes(x=pubs, y=salary, group=sex, color=sex)) +
   geom_point() +
@@ -60,7 +61,8 @@ print(out.scat.two)
 ```
 
 # The following code will be used to answer question 2
-```{r create a pdf with a mean of 25 and sd of 5, echo=FALSE}
+## First create the theoretical PDF
+```{r create a pdf with a mean of 25 and sd of 5}
 x.seq <- seq(0, 50, by=.001)
 tmp.dist <- dnorm(x=x.seq, mean=25, sd=5)
 ## Now plot this distribution
@@ -89,7 +91,7 @@ mtext(result,3)
 
 ## Problem 2B
 
-```{r 2B find percent of distribution greater than 24 & less than 28 exclusive, echo=FALSE}
+```{r 2B find percent of distribution greater than 24 and less than 28 exclusive}
 ## First plot what we want
 mean=25; sd=5
 lb=24 ; ub=28
@@ -109,7 +111,7 @@ mtext(result,3)
 ```
 
 ## Problem 2C
-```{r 2C calculate the z score of the 50th percentile, echo=FALSE}
+```{r 2C calculate the z score of the 50th percentile}
 ## First plot what we want
 mean=25; sd=5
 x <- x.seq
@@ -128,7 +130,7 @@ mtext(result,3)
 ```
 
 ## Problem 2D
-```{r 2D the z scores of the values grabbing 50percent of the data, echo=FALSE}
+```{r 2D the z scores of the values grabbing 50percent of the data}
 ## First plot what we want
 mean=25; sd=5
 x <- x.seq
@@ -153,7 +155,7 @@ print(answer_p2)
 ```
 
 ## Problem 2E
-```{r 2E the z scores of the values grabbing 95percent of the data, echo=FALSE}
+```{r 2E the z scores of the values grabbing 95percent of the data}
 ## First plot what we want
 mean=25; sd=5
 x <- x.seq
