@@ -1,0 +1,53 @@
+---
+title: "HomeWork1"
+author: "adrose"
+date: "9/9/2019"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Load the library(s)
+
+```{r load library}
+library(foreign) ## Will be used to load .sav file
+library(ggplot2) ## Will be used for plotting
+print("Done loading librarys")
+```
+
+```{r load data}
+all.dat <- read.spss("./salary.sav", to.data.frame=T)
+## I am now going to write a csv, so I can upload this to github and have the data in a remote location
+write.csv(all.data, "./salary.csv", quote=F, row.names=F)
+all.dat <- read.csv('./salary.csv')
+```
+
+
+## The following ssections will be used to answer Problem #1
+```{r 1A produce mean, median, and variance}
+mean.salary <- mean(all.dat$salary)
+median.salary <- median(all.dat$salary)
+var.salary <- var(all.dat$salary)
+print(paste("The mean of salary is: ", mean.salary))
+print(paste("The median of salary is: ", median.salary))
+print(paste("The variance of salary is: ", var.salary))
+
+```
+```{r 1B plot and describe the salary variable, echo=FALSE}
+hist(all.dat$salary)
+boxplot(all.dat$salary)
+qqnorm(all.dat$salary)
+print(paste("These data appear to be relativley normal although there is one lower bound outlier"))
+```
+
+## Including Plots
+
+You can also embed plots, for example:
+
+```{r pressure, echo=FALSE}
+plot(pressure)
+```
+
+Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
