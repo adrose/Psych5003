@@ -51,6 +51,7 @@ out.scat.one <- ggplot(data=all.dat, aes(x=pubs, y=salary)) +
 print(out.scat.one)
 ```
 
+
 ## Problem 1D
 ```{r 1D now add a factor to the previous plot}
 all.dat$sex <- factor(all.dat$sex)
@@ -70,7 +71,7 @@ plot(x.seq, tmp.dist)
 ```
 
 ## Problem 2A
-```{r 2A find percent of distribution greater than 2, echo=FALSE}
+```{r 2A find percent of distribution greater than 2}
 ## First plot what we want
 mean=25; sd=5
 lb=22
@@ -167,9 +168,13 @@ ub <- 25 + (qnorm(.975)*5)
 plot(x, hx, type="n", xlab="IQ Values", ylab="",
   main="", axes=TRUE)
 
-i <- x >= lb & x <= ub
+i_lower <- x <= lb
+i_upper <- x >= ub
 lines(x, hx)
-polygon(c(lb,x[i],ub), c(0,hx[i],0), col="red")
+polygon(c(0,x[i_lower],lb), c(0,hx[i_lower],0), col='red')
+polygon(c(ub,x[i_upper],50), c(0,hx[i_upper],0), col='red')
+
+        
 area <- pnorm(ub, mean, sd) - pnorm(lb, mean, sd)
 result <- paste("LB = ", round(lb, 3), "UB = ", round(ub, 3))
 mtext(result,3)
