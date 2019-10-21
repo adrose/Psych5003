@@ -2,12 +2,10 @@
 title: "HW 3"
 author: "Adon Rosen"
 date: 'Date: `r Sys.Date()`'
-output:
-  word_document: pdf
+output: pdf_document
 ---
 
---  Set the working directory to the repository's base directory; this assumes the report is nested inside of two directories.-->
-```{r, echo=F, message=F, warning=FALSE, echo=F}
+```{r, echo=F, message=F, warning=FALSE}
 # cat("Working directory: ", getwd())
   library(knitr)
   opts_knit$set(root.dir='~/Documents/Psych5003/HW3')  #Don't combine this call with any other chunk -especially one that uses file paths.
@@ -27,7 +25,7 @@ opts_chunk$set(
   fig.path   = 'figure-png/'
 )
 # echoChunks <- FALSE
-options(width=120) #So the output is 50% wider than the default.
+options(width=80) #So the output is 50% wider than the default.
 read_chunk("./homeWork3.R") #This allows knitr to call chunks tagged in the underlying *.R file.
 ```
 
@@ -35,15 +33,44 @@ read_chunk("./homeWork3.R") #This allows knitr to call chunks tagged in the unde
 ```
 ```{r load-data, echo=FALSE, results='show', message=FALSE, warning=FALSE}
 ```
+```{r create-functions, echo=FALSE, results='show', message=FALSE, warning=FALSE}
+```
 
-```{r q-1b, echo=FALSE, results='show', message=FALSE, warning=FALSE}
+# Question 1
+### Question 1a
+```{r q-1a, echo=TRUE, results='show', message=FALSE, warning=FALSE}
 ```
 
 ### Question 1b
-Here utiliizng a t test to explore differences in means between the two gender groups, we conclude the differences in salary do display significant differences across genders. The resultant models statisc was `r base::print(to.report.stat)` with a p value of `r base::round(base::print(to.report.prob), 5)`. This value reflects the probability of observing this difference in means given there is no difference between the two groups.
+```{r q-1b, echo=TRUE, results='show', message=FALSE, warning=FALSE}
+```
+Here utiliizng a t test to explore differences in means between the two gender groups, we conclude the differences in salary do display significant differences across genders. The resultant models statistic was `r base::round(print(to.report.stat),2)` with a p value of `r base::round(base::print(to.report.prob), 5)`. This value reflects the probability of observing this difference in means given there is no difference between the two groups.
 
 ### Question 1c
-Here utilizing a variance test to explore differences in group variance, we fail to reject the null hypothesis that the genders display equivalent variance. The resultant models statisc was `r base::print(to.report.stat)` with a p value of `r base::round(base::print(to.report.prob), 5)`. 
+```{r q-1c, echo=FALSE, results='show', message=FALSE, warning=FALSE}
+```
+Here utilizing a variance test to explore differences in group variance, we fail to reject the null hypothesis that the genders display equivalent variance. The resultant models statisc was `r base::round(print(to.report.stat),2)` with a p value of `r base::round(base::print(to.report.prob), 5)`. 
 
 ### Question 1d
+Here, utilizing this publicly available data, we tested for differences in means between female and male colleagues. First, assumptions for a parametric t test were checked by measuring for differences in sample variance using an f-test, here we observed a nonsignificant difference in variance between the two populations (F(99,199)=.79, p=.19). With this assumption met, significant differences in means were observed using a t test (t(219)=17, p<.0005). This value suggested that male colleagues have greater mean salaries than their female counter parts.
 
+# Question 2
+### Question 2a
+
+#### Report my hypotheses here:
+$$H_0 : \mu_1 = \mu2 = \mu3$$
+$$H_a : \mu_i \neq \mu_j  \text{ For some i and j}\\ $$
+
+
+```{r q-2a, echo=TRUE, results='show', message=FALSE, warning=FALSE}
+```
+
+Here, we will reject the null hypothesis stating that these populations display equivalent means given our F statistic of `r base::round(print(f.stat), 2)` which has a p value of `r base::round(print(f.stat.p.val), 5)`
+
+### Question 2b
+```{r q-2b, echo=TRUE, results='show', message=FALSE, warning=FALSE}
+```
+
+# Question 3
+```{r q-3a, echo=TRUE, results='show', message=FALSE, warning=FALSE}
+```
