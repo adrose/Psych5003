@@ -58,7 +58,7 @@ Here, utilizing this publicly available data, we tested for differences in means
 ### Question 2a
 
 #### Report my hypotheses here:
-$$H_0 : \mu_1 = \mu2 = \mu3$$
+$$H_0 : \mu_1 = \mu_2 = \mu_3$$
 $$H_a : \mu_i \neq \mu_j  \text{ For some i and j}\\ $$
 
 
