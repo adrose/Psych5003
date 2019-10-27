@@ -39,6 +39,24 @@ summarySE <- function(data=NULL, measurevar, groupvars=NULL, na.rm=FALSE,
   return(datac)
 }
 
+t.test2 <- function(m1,m2,s1,s2,n1,n2,m0=0,equal.variance=FALSE)
+{
+  if( equal.variance==FALSE ) 
+  {
+    se <- sqrt( (s1^2/n1) + (s2^2/n2) )
+    # welch-satterthwaite df
+    df <- ( (s1^2/n1 + s2^2/n2)^2 )/( (s1^2/n1)^2/(n1-1) + (s2^2/n2)^2/(n2-1) )
+  } else
+  {
+    # pooled standard deviation, scaled by the sample sizes
+    se <- sqrt( (1/n1 + 1/n2) * ((n1-1)*s1^2 + (n2-1)*s2^2)/(n1+n2-2) ) 
+    df <- n1+n2-2
+  }      
+  t <- (m1-m2-m0)/se 
+  dat <- c(m1-m2, se, t, 2*pt(-abs(t),df))    
+  names(dat) <- c("Difference of means", "Std Error", "t", "p-value")
+  return(dat) 
+}
 
 # ---- q-1a ----------------------------------------------------------------------
 mean.se.vals <- summarySE(data = in.data, measurevar = 'salary', groupvars = 'gender')
@@ -56,6 +74,9 @@ t.stat.by.hand <- (m.m-f.m)/(pooled.standard*sqrt(1/m.size+1/f.size))
 
 ## Now calulate the p value for the t statistic
 t.stat.by.hand.p.value <- pt(t.stat.by.hand, df=298, lower.tail = F)
+
+print(t.stat.by.hand)
+print(t.stat.by.hand.p.value)
 
 # ---- q-1b ----------------------------------------------------------------------
 out.val <- t.test(salary ~ gender, data=in.data, var.equal=T)
