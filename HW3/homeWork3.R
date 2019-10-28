@@ -73,7 +73,7 @@ pooled.standard <- sqrt(((m.size-1)*m.sd^2+(f.size-1)*f.sd^2)/(m.size+f.size-2))
 t.stat.by.hand <- (m.m-f.m)/(pooled.standard*sqrt(1/m.size+1/f.size))
 
 ## Now calulate the p value for the t statistic
-t.stat.by.hand.p.value <- pt(t.stat.by.hand, df=298, lower.tail = F)
+t.stat.by.hand.p.value <- 2*pt(-abs(t.stat.by.hand),df=298)
 
 print(t.stat.by.hand)
 print(t.stat.by.hand.p.value)
@@ -120,3 +120,4 @@ sd.diff <- sd(diff.vec)
 se.diff <- sd.diff / sqrt(length(diff.vec))
 t.stat <- mean.diff / se.diff
 t.stat.p.val <- pt(t.stat, df=19, lower.tail = F)
+

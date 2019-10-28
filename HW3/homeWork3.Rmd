@@ -44,15 +44,17 @@ read_chunk("./homeWork3.R") #This allows knitr to call chunks tagged in the unde
 ### Question 1b
 ```{r q-1b, echo=TRUE, results='show', message=FALSE, warning=FALSE}
 ```
-Utiliizng a t test to explore differences in means between the two genders, we conclude the salarys do display significant differences across genders. The resultant models statistic was `r base::round(print(to.report.stat),2)` with a p value of `r base::round(base::print(to.report.prob), 5)`. This value reflects the probability of observing this difference in means given undera true null hypothesis.
+Utilizing a t test to explore differences in means between the two genders, we conclude the salaries do display significant differences across genders. The resultant models statistic was `r base::round(print(to.report.stat),2)` with a p value of `r base::round(base::print(to.report.prob), 5)`. This value reflects the probability of observing this difference in means given under a true null hypothesis.
 
 ### Question 1c
 ```{r q-1c, echo=FALSE, results='show', message=FALSE, warning=FALSE}
 ```
-Utilizing a variance test to explore differences in group variance, we fail to reject the null hypothesis that the genders display equivalent variance. The resultant models statisc was `r base::round(print(to.report.stat),2)` with a p value of `r base::round(base::print(to.report.prob), 5)`. 
+Utilizing a variance test to explore differences in group variance, we fail to reject the null hypothesis that the genders display equivalent variance. The resultant models statistic was `r base::round(print(to.report.stat),2)` with a p value of `r base::round(base::print(to.report.prob), 5)`. 
 
 ### Question 1d
-Differences in mean salary were tested between male (`r base::print(m.size)`) and female (`r base::print(f.size)`) professors.First, assumptions for a parametric t test were checked by measuring for differences in sample variance using an f-test, here we observed a nonsignificant difference in variance between the two populations (F(99,199)=.79, p=.19). This suggests the data are suitable for a parametric t-test. Significant differences in means were observed using a t test (t(219)=17, p<.0005). This value suggested that male colleagues have greater mean salaries than their female counter parts.
+```{r q-1a, echo=FALSE, message=FALSE, warning=FALSE}
+```
+Differences in mean salary were tested between male (n=200) and female (n=100) professors. First, assumptions for a parametric t test were checked by measuring for differences in sample variance using an f-test, here we observed a nonsignificant difference in variance between the two populations (F(99,199)=.79, p=.19). This suggests the data are suitable for a parametric t-test. Significant differences in means were observed using a t test (t(298)=17, p<.0005). This value suggested that male colleagues have greater mean salaries than their female counter parts.
 
 # Question 2
 ### Question 2a
@@ -74,3 +76,5 @@ The null hypothesis will be rejected with these data given the observed F statis
 # Question 3
 ```{r q-3a, echo=TRUE, results='show', message=FALSE, warning=FALSE}
 ```
+
+The null hypothesis of equivalence between the means pre- and post-module will be rejected. Using a dependent sample t test, the models t value was `r base::round(print(t.stat),2)` with a p value of `r base::round(print(t.stat.p.val), 5)`. This suggests the module did result in grater mean scores.
