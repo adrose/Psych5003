@@ -1,0 +1,52 @@
+---
+title: "HW 4"
+author: "Adon Rosen"
+date: 'Date: `r Sys.Date()`'
+output: pdf_document
+---
+  
+```{r, echo=F, message=F, warning=FALSE}
+library(knitr)
+opts_knit$set(root.dir='~/Documents/Psych5003/HW4')  #Don't combine this call with any other chunk -especially one that uses file paths.
+```
+
+
+<!-- Set the report-wide options, and point to the external code file. -->
+  ```{r set_options, echo=F, warning=FALSE}
+# cat("Working directory: ", getwd())
+report_render_start_time <- Sys.time()
+opts_chunk$set(
+  results    = 'show',
+  comment    = NA,
+  tidy       = FALSE,
+  fig.width  = 10,
+  fig.height = 6,
+  fig.path   = 'figure-png/'
+)
+# echoChunks <- FALSE
+options(width=80) #So the output is 50% wider than the default.
+read_chunk("./homeWork4.R") #This allows knitr to call chunks tagged in the underlying *.R file.
+```
+
+```{r load-packages, echo=FALSE, results='show', message=FALSE, warning=FALSE}
+```
+```{r load-data, echo=FALSE, results='show', message=FALSE, warning=FALSE}
+```
+```{r create-functions, echo=FALSE, results='show', message=FALSE, warning=FALSE}
+```
+
+# Question 1
+```{r create-marginal-means, echo=FALSE, results='show', warning=FALSE, message=FALSE}
+```
+
+# Question 2
+```{r plot-data, echo=FALSE, results='show', warning=FALSE, message=FALSE}
+```
+
+# Question 6
+```{r run-aov, echo=TRUE, results='show', warning=FALSE, message=FALSE}
+```
+
+# Question 7
+```{r run-simple-effect, echo=TRUE, results='show', warning=FALSE, message=FALSE}
+```
