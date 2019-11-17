@@ -77,12 +77,13 @@ out.plot
 # ---- run-aov ---------------------------------------------------------------------------------
 in.data$sex <- factor(in.data$sex)
 in.data$drug <- factor(in.data$drug)
-out.model <- aov(score ~ sex * factor(drug), data=in.data)
+out.model <- aov(score ~ sex * drug, data=in.data,)
 summary(out.model)
 
 # ---- run-simple-effect ---------------------------------------------------------------------------------
-run.1 <- t.test(score ~ sex, in.data[which(in.data$drug==1),])
-run.2 <- t.test(score ~ sex, in.data[which(in.data$drug==2),])
-run.3 <- t.test(score ~ sex, in.data[which(in.data$drug==3),])
-run.4 <- t.test(score ~ sex, in.data[which(in.data$drug==4),])
-run.5 <- t.test(score ~ sex, in.data[which(in.data$drug==5),])
+run.1 <- t.test(score ~ sex, in.data[which(in.data$drug==1),], var.equal=T)
+run.2 <- t.test(score ~ sex, in.data[which(in.data$drug==2),], var.equal=T)
+run.3 <- t.test(score ~ sex, in.data[which(in.data$drug==3),], var.equal=T)
+run.4 <- t.test(score ~ sex, in.data[which(in.data$drug==4),], var.equal=T)
+run.5 <- t.test(score ~ sex, in.data[which(in.data$drug==5),], var.equal=T)
+for(i in 1:5){print(get(paste("run.", i, sep='')))}

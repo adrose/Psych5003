@@ -50,3 +50,6 @@ read_chunk("./homeWork4.R") #This allows knitr to call chunks tagged in the unde
 # Question 7
 ```{r run-simple-effect, echo=TRUE, results='show', warning=FALSE, message=FALSE}
 ```
+
+# Question 8
+Differences in drug dosage effects were tested differentially across the sexes utilizing a two way analysis of variance. Dosage was coded as a five level factor, and sex was coded as a two level factor between male and female. The resultant interaction was found to be significant (F(4,99)=5.9, p<.001) indicating the sexes respond differentially to dose level of the drug. Further post-hoc t-tests were used to test where the differences emerged across the discrete dose categorizations. While lower levels of does (levels 1,2) did not display significant differences between the sexes (t_1(18)=.68, p>0.05; t_2(18)=-.76, p>0.05), differences in greater dose levels were observed (t_3(18)=-2.80, p=0.01; t_4(18)=-2.56, p=0.02; t_5(18)=-5.02, p<.001). These results suggest greater scores were observed in the female cohort under greater dosage levels than the male cohorts.
