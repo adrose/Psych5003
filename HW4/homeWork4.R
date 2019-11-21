@@ -4,6 +4,7 @@ rm(list=ls(all=TRUE))
 library("tidyverse")
 library("foreign")
 library("knitr")
+library("kableExtra")
 library("reshape2")
 setwd("~/Documents/Psych5003/HW4")
 
@@ -70,7 +71,8 @@ for(i in 2:6){
 }
 
 ## Now print it out
-kable(x = out.matrix, digits = 2, col.names = c("Sex", "1", "2", "3", "4", "5", "Means"))
+kable(x = out.matrix, digits = 2, col.names = c("Sex", "1", "2", "3", "4", "5", "Means")) %>%
+    footnote(general = "Cell means for sex and drug dosage, standard deviations are included with parentheses.")
 
 # ---- plot-data ---------------------------------------------------------------------------------
 plot.data <- summarySE(data = in.data, measurevar = 'score', groupvars = c('sex', 'drug'))
