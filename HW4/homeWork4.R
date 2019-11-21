@@ -43,12 +43,14 @@ summarySE <- function(data=NULL, measurevar, groupvars=NULL, na.rm=FALSE,
 }
 
 # ---- create-marginal-means ----------------------------------------------------------------------
-base.table <- dcast(data = summarySE(data = in.data, measurevar = 'score', groupvars = c('sex', 'drug'))[,c(1,2,4)], value.var = 'score', formula =  sex~ drug)
+base.table <- round(dcast(data = summarySE(data = in.data, measurevar = 'score', groupvars = c('sex', 'drug'))[,c(1,2,4)], value.var = 'score', formula =  sex~ drug),2)
+base.table.sd <- round(dcast(data = summarySE(data = in.data, measurevar = 'score', groupvars = c('sex', 'drug'))[,c(1,2,5)], value.var = 'sd', formula =  sex~ drug),2)
 base.table.col <- c(rowMeans(base.table[,-1]),NA)
 base.table.row <- c(colMeans(base.table),NA)
 out.matrix <- matrix(NA, nrow = 3, ncol = 7)
 for(i in 1:6){
   for(j in 1:2){
+    #out.matrix[j,i] <- paste(base.table[j,i] ," (", base.table.sd[j,i], ")", sep='') 
     out.matrix[j,i] <- base.table[j,i] 
   }
 }
@@ -59,6 +61,14 @@ out.matrix[3,7] <- mean(out.matrix[1:2,7])
 ## now report in a pretty format
 out.matrix[,1] <- c("Male","Female","Means")
 
+## Now add the standard deviation
+for(i in 2:6){
+  for(j in 1:2){
+    out.matrix[j,i] <- paste(base.table[j,i] ," (", base.table.sd[j,i], ")", sep='') 
+    #out.matrix[j,i] <- base.table[j,i] 
+  }
+}
+
 ## Now print it out
 kable(x = out.matrix, digits = 2, col.names = c("Sex", "1", "2", "3", "4", "5", "Means"))
 
@@ -68,8 +78,9 @@ plot.data$sex <- factor(plot.data$sex)
 in.data$sex <- factor(in.data$sex)
 out.plot <- ggplot(data = in.data, aes(x=drug,y=score, group=sex, color=sex)) + 
     geom_point() + 
-    geom_point(data=plot.data, aes(x=drug,y=score,group=sex, color=sex), size=8) +
-    geom_errorbar(data=plot.data, mapping=aes(x=drug, ymin=score-se, ymax=score+se, group=sex, color=sex), width=0.2, size=1) +
+    #geom_point(data=plot.data, aes(x=drug,y=score,group=sex, color=sex), size=8) +
+    #geom_errorbar(data=plot.data, mapping=aes(x=drug, ymin=score-se, ymax=score+se, group=sex, color=sex), width=0.2, size=1) +
+    geom_smooth(method='lm') +
     theme_bw() + scale_colour_grey()
 out.plot
 
@@ -78,6 +89,7 @@ out.plot
 in.data$sex <- factor(in.data$sex)
 in.data$drug <- factor(in.data$drug)
 out.model <- aov(score ~ sex * drug, data=in.data,)
+out.model <- aov(score ~ sex + drug + sex:drug, data=in.data)
 summary(out.model)
 
 # ---- run-simple-effect ---------------------------------------------------------------------------------
