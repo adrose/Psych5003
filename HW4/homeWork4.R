@@ -80,9 +80,10 @@ plot.data$sex <- factor(plot.data$sex)
 in.data$sex <- factor(in.data$sex)
 out.plot <- ggplot(data = in.data, aes(x=drug,y=score, group=sex, color=sex)) + 
     geom_point() + 
-    #geom_point(data=plot.data, aes(x=drug,y=score,group=sex, color=sex), size=8) +
-    #geom_errorbar(data=plot.data, mapping=aes(x=drug, ymin=score-se, ymax=score+se, group=sex, color=sex), width=0.2, size=1) +
-    geom_smooth(method='lm') +
+    geom_point(data=plot.data, aes(x=drug,y=score,group=sex, color=sex), size=8) +
+    geom_errorbar(data=plot.data, mapping=aes(x=drug, ymin=score-se, ymax=score+se, group=sex, color=sex), width=0.2, size=1) +
+    #geom_smooth(method='lm') +
+    geom_line(data=plot.data, aes(x=drug,y=score,group=sex, color=sex)) +
     theme_bw() + scale_colour_grey()
 out.plot
 
